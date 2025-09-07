@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getUrl, list, remove, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
+import { copy, getUrl, list, remove, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.listAllFiles();
+    // this.copyFile();
   }
 
   onFileSelected(event: Event) {
@@ -63,5 +64,22 @@ export class AppComponent {
     const res = await remove({ path: path });
     console.log(res);
     this.listAllFiles();
+  }
+
+  async copyFile() {
+    try {
+      const res = await copy({
+        source: {
+          path: 'usersfiles/4_20_2025-access-logs (1) (1) (3).csv',
+        },
+        destination: {
+          path: 'examples/' + '4_20_2025-access-logs (1) (1) (3).csv',
+        },
+      });
+
+      //   console.log(res);
+    } catch (err) {
+      console.error('Error copying file:', err);
+    }
   }
 }
