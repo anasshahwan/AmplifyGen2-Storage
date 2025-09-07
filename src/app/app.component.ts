@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
+import { list, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,10 @@ import { uploadData } from 'aws-amplify/storage'; // Adjust the import path as n
 export class AppComponent {
   selectedFile: File | null = null;
   files: any[] = [];
+
+  ngOnInit() {
+    this.listAllFiles();
+  }
 
   onFileSelected(event: Event) {
     const fileInput = event.target as HTMLInputElement;
@@ -31,5 +35,12 @@ export class AppComponent {
       data: this.selectedFile,
     }).result;
     console.log(result);
+  }
+
+  async listAllFiles() {
+    const result = await list({ path: 'usersfiles/' });
+    //  console.log(result);
+    this.files = result.items;
+    console.log(this.files);
   }
 }
