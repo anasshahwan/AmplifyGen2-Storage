@@ -8,6 +8,7 @@
     <div class="card">
       <p>{{ file.path }}</p>
       <button (click)="downloadFile(file.path)">Download</button>
+      <button class="delete" (click)="deleteFile(file.path)">Delete</button>
     </div>
   }
 </div>

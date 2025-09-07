@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getUrl, list, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
+import { getUrl, list, remove, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
 
 @Component({
   selector: 'app-root',
@@ -56,5 +56,12 @@ export class AppComponent {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  }
+
+  async deleteFile(path: string) {
+    console.log(path);
+    const res = await remove({ path: path });
+    console.log(res);
+    this.listAllFiles();
   }
 }
