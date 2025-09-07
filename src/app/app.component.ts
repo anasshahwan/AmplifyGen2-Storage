@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { list, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
+import { getUrl, list, uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
 
 @Component({
   selector: 'app-root',
@@ -42,5 +42,19 @@ export class AppComponent {
     //  console.log(result);
     this.files = result.items;
     console.log(this.files);
+  }
+
+  async downloadFile(path: string) {
+    console.log(path);
+
+    const result = await getUrl({ path: path });
+    console.log(result.url);
+
+    const a = document.createElement('a');
+    a.href = result.url.href;
+    a.download = '';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }

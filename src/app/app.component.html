@@ -7,6 +7,7 @@
   @for (file of files; track file.path) {
     <div class="card">
       <p>{{ file.path }}</p>
+      <button (click)="downloadFile(file.path)">Download</button>
     </div>
   }
 </div>
