@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { uploadData } from 'aws-amplify/storage'; // Adjust the import path as necessary
+
 @Component({
   selector: 'app-root',
   imports: [],
@@ -23,5 +25,11 @@ export class AppComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     console.log('File selected:', this.selectedFile);
+
+    const result = await uploadData({
+      path: 'usersfiles/' + this.selectedFile.name,
+      data: this.selectedFile,
+    }).result;
+    console.log(result);
   }
 }
